@@ -1,8 +1,9 @@
 package com.lehoangglam.workscout.controller;
 
-
-import com.lehoangglam.workscout.entities.JobPost;
-import com.lehoangglam.workscout.repository.JobPostRepository;
+import com.lehoangglam.workscout.entities.Category;
+import com.lehoangglam.workscout.entities.JobPostActivity;
+import com.lehoangglam.workscout.repository.CategoryRepository;
+import com.lehoangglam.workscout.repository.JobPostActivityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-public class JobPostController {
+public class CategoryController {
     @Autowired
-    private JobPostRepository jobPostRepository;
+    private CategoryRepository categoryRepository;
 
-    @GetMapping("/jobpost")
-    public List<JobPost> getAllJobPosts(){
-        return jobPostRepository.findAll();
+    @GetMapping("/cates")
+    public List<Category> getAllCategories(){
+        return categoryRepository.findAll();
     }
 }
