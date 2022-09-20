@@ -54,7 +54,7 @@ public class JobPost implements Serializable {
     @JsonIgnore
     private Collection<JobPostActivity> jobPostActivityCollection;
     @JoinColumn(name = "company_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Company companyId;
     @JoinColumn(name = "job_cate_id", referencedColumnName = "id")

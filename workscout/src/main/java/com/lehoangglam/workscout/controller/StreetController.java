@@ -1,10 +1,10 @@
 package com.lehoangglam.workscout.controller;
 
-
-import com.lehoangglam.workscout.entities.JobPost;
-import com.lehoangglam.workscout.repository.JobPostRepository;
+import com.lehoangglam.workscout.entities.Category;
+import com.lehoangglam.workscout.entities.Street;
+import com.lehoangglam.workscout.repository.CategoryRepository;
+import com.lehoangglam.workscout.repository.StreetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +15,12 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
-public class JobPostController {
+public class StreetController {
     @Autowired
-    private JobPostRepository jobPostRepository;
+    private StreetRepository streetRepository;
 
-    @GetMapping("/jobpost")
-    public List<JobPost> getAllJobPosts(){
-        return jobPostRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    @GetMapping("/streets")
+    public List<Street> getAllCategories(){
+        return streetRepository.findAll();
     }
 }
