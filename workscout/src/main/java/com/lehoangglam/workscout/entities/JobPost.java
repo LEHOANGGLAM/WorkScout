@@ -53,21 +53,21 @@ public class JobPost implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobPost")
     @JsonIgnore
     private Collection<JobPostActivity> jobPostActivityCollection;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Company companyId;
+
     @JoinColumn(name = "job_cate_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private JobCategory jobCateId;
     @JoinColumn(name = "job_type_id", referencedColumnName = "ib")
     @ManyToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="ib")
+
     private JobType jobTypeId;
     @JoinColumn(name = "job_street_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Street jobStreetId;
 
     public Collection<JobPostActivity> getJobPostActivityCollection() {
