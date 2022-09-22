@@ -29,6 +29,11 @@ public class CompanyController {
                 new ResourceNotFoundException("Company not exist with id: "+ id));
         return ResponseEntity.ok(company);
     }
+//    @GetMapping("/companies/post-{id}")
+//    public ResponseEntity<Company> getCompanyByPostId(@PathVariable Integer id){
+//        Company company = companyRepository.findByPostId(id);
+//        return ResponseEntity.ok(company);
+//    }
 
     @PutMapping("/companies/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable Integer id,@RequestBody Company companyNew){

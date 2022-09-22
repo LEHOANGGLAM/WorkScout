@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api")
 public class JobPostController {
@@ -34,6 +34,8 @@ public class JobPostController {
                 new ResourceNotFoundException("JobPost not exist with id: "+ id));
         return ResponseEntity.ok(jobPost);
     }
+
+
 
 //    @GetMapping("/jobpost/page{pageNo}")
 //    public List<JobPost> getAllJobPosts(@PathVariable(value = "pageNo") Integer pageNo) {
