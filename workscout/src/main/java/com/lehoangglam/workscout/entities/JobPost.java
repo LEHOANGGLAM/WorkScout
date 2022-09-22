@@ -28,10 +28,10 @@ public class JobPost implements Serializable {
     private Date createdDate;
     @Column(name = "expiration_date")
     private Date expirationDate;
-    @Size(max = 45)
+    @Size(max = 2500)
     @Column(name = "job_description")
     private String jobDescription;
-    @Size(max = 45)
+    @Size(max = 2500)
     @Column(name = "job_requirement")
     private String jobRequirement;
     @Column(name = "is_active")
@@ -47,27 +47,27 @@ public class JobPost implements Serializable {
     private String jobNature;
     @Column(name = "vacancy")
     private Integer vacancy;
-    @Size(max = 45)
+    @Size(max = 2500)
     @Column(name = "individual_right")
     private String individualRight;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobPost")
     @JsonIgnore
     private Collection<JobPostActivity> jobPostActivityCollection;
+
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Company companyId;
+
     @JoinColumn(name = "job_cate_id", referencedColumnName = "id")
     @ManyToOne
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private JobCategory jobCateId;
     @JoinColumn(name = "job_type_id", referencedColumnName = "ib")
     @ManyToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="ib")
+
     private JobType jobTypeId;
     @JoinColumn(name = "job_street_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
     private Street jobStreetId;
 
     public Collection<JobPostActivity> getJobPostActivityCollection() {
