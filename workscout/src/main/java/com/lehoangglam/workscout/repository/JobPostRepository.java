@@ -1,3 +1,4 @@
+
 package com.lehoangglam.workscout.repository;
 
 import com.lehoangglam.workscout.entities.Company;
@@ -9,4 +10,3 @@ import java.util.List;
 
 public interface JobPostRepository extends JpaRepository<JobPost, Integer>, JpaSpecificationExecutor<JobPost> {
 
-}
