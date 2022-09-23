@@ -1,3 +1,4 @@
+
 package com.lehoangglam.workscout.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -28,7 +29,7 @@ public class Street implements Serializable {
     private Company companyId;
     @JoinColumn(name = "city_id", referencedColumnName = "id")
     @ManyToOne
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+
     private Location cityId;
 
     @JoinColumn(name = "user_id", referencedColumnName = "id")
