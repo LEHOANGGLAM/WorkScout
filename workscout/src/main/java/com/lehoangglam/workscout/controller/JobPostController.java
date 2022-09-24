@@ -4,6 +4,8 @@ package com.lehoangglam.workscout.controller;
 import com.lehoangglam.workscout.entities.Company;
 import com.lehoangglam.workscout.entities.JobPost;
 import com.lehoangglam.workscout.exception.ResourceNotFoundException;
+import com.lehoangglam.workscout.repository.CommentRepository;
+import com.lehoangglam.workscout.repository.CompanyRepository;
 import com.lehoangglam.workscout.repository.JobPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,8 @@ import java.util.List;
 public class JobPostController {
     @Autowired
     private JobPostRepository jobPostRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("/jobpost")
     public List<JobPost> getAllJobPosts(){
@@ -35,7 +39,10 @@ public class JobPostController {
         return ResponseEntity.ok(jobPost);
     }
 
-
+    @GetMapping("/jobpost/company/{id}")
+    public List<JobPost> getJobPostsByCompanyId(@PathVariable Integer id){
+        return jobPostRepository.findByCompanyId(companyRepository.findById(id));
+    }
 
 //    @GetMapping("/jobpost/page{pageNo}")
 //    public List<JobPost> getAllJobPosts(@PathVariable(value = "pageNo") Integer pageNo) {
