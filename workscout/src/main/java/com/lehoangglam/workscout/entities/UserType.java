@@ -1,6 +1,7 @@
 package com.lehoangglam.workscout.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,7 +10,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "user_type")
-public class UserType implements Serializable {
+public class UserType implements Serializable, GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,5 +66,10 @@ public class UserType implements Serializable {
                 "id=" + id + '\'' +
                 "userTypeName=" + userTypeName + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getAuthority() {
+        return userTypeName;
     }
 }

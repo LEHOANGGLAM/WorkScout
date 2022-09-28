@@ -20,24 +20,22 @@ public class UserAccountController {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public List<UserAccount> getAllUsers() {
         return userAccountRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    @GetMapping("/user/{username}")
+    @GetMapping("/users/{username}")
     public ResponseEntity<UserAccount> getUserByName(@PathVariable String username) {
         UserAccount user = userAccountRepository.findByUsername(username);
         return ResponseEntity.ok(user);
     }
-//    @GetMapping("/companies/{id}")
-//    public ResponseEntity<UserAccount> getUserByUsername(@PathVariable String username){
-//        UserAccount user = userAccountRepository.findAll(id).orElseThrow(()->
-//                new ResourceNotFoundException("User not exist with Username: "+ id));
-//        return ResponseEntity.ok(user);
-//    }
 
 
+    @PostMapping("/users")
+    public UserAccount userRegistration(@RequestBody UserAccount user) {
+        return userAccountRepository.save(user);
+    }
 }
 
 

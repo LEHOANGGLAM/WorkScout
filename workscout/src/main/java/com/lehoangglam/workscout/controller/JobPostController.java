@@ -44,6 +44,11 @@ public class JobPostController {
         return jobPostRepository.findByCompanyId(companyRepository.findById(id));
     }
 
+    @PostMapping("/jobpost")
+    public JobPost createJobPost(@RequestBody JobPost jobPost){
+        return jobPostRepository.save(jobPost);
+    }
+
 //    @GetMapping("/jobpost/page{pageNo}")
 //    public List<JobPost> getAllJobPosts(@PathVariable(value = "pageNo") Integer pageNo) {
 //
@@ -57,4 +62,5 @@ public class JobPostController {
 //
 //        return listJobPosts;
 //    }
+
 }

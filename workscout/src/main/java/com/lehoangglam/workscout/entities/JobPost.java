@@ -78,6 +78,9 @@ public class JobPost implements Serializable {
         this.jobPostActivityCollection = jobPostActivityCollection;
     }
 
+    public JobPost() {
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

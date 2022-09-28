@@ -1,6 +1,8 @@
 package com.lehoangglam.workscout.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -10,7 +12,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "user_account")
-public class UserAccount implements Serializable {
+public class UserAccount implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -122,6 +124,11 @@ public class UserAccount implements Serializable {
         this.password = password;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -172,6 +179,26 @@ public class UserAccount implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return this.isEnabled();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return this.isEnabled();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return this.isEnabled();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUserTypeId(UserType userTypeId) {
