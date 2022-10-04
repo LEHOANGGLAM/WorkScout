@@ -25,11 +25,11 @@ public class UserAccountController {
         return userAccountRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    @GetMapping("/users/{username}")
-    public ResponseEntity<UserAccount> getUserByName(@PathVariable String username) {
-        UserAccount user = userAccountRepository.findByUsername(username);
-        return ResponseEntity.ok(user);
-    }
+//    @GetMapping("/users/{username}")
+//    public ResponseEntity<UserAccount> getUserByName(@PathVariable String username) {
+//        UserAccount user = userAccountRepository.findByUsername(username);
+//        return ResponseEntity.ok(user);
+//    }
 
 
     @PostMapping("/users")

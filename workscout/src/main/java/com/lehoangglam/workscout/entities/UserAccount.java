@@ -11,8 +11,13 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user_account")
-public class UserAccount implements Serializable, UserDetails {
+@Table(name = "user_account",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email"),
+        }
+)
+public class UserAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -69,8 +74,25 @@ public class UserAccount implements Serializable, UserDetails {
     @JsonIgnore
     private Collection<Company> companyCollection;
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
-    @ManyToOne
-    private UserType userTypeId;
+//    @ManyToOne
+//    private UserType userTypeId;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "user_type",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Collection<UserType> types;
+    //get,set
+    public Collection<UserType> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Collection<UserType> types) {
+        this.types = types;
+    }
+
+
 
     public Collection<JobPostActivity> getJobPostActivityCollection() {
         return jobPostActivityCollection;
@@ -124,10 +146,7 @@ public class UserAccount implements Serializable, UserDetails {
         this.password = password;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+
 
     public String getPassword() {
         return password;
@@ -181,33 +200,9 @@ public class UserAccount implements Serializable, UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.isEnabled();
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.isEnabled();
-    }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.isEnabled();
-    }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setUserTypeId(UserType userTypeId) {
-        this.userTypeId = userTypeId;
-    }
-
-    public UserType getUserTypeId() {
-        return userTypeId;
-    }
 
     public void setComfirm(Integer comfirm) {
         this.isComfirm = comfirm;
@@ -261,7 +256,7 @@ public class UserAccount implements Serializable, UserDetails {
                 "userImage=" + userImage + '\'' +
                 "registrationDate=" + registrationDate + '\'' +
                 "username=" + username + '\'' +
-                "userTypeId=" + userTypeId + '\'' +
+//                "userTypeId=" + userTypeId + '\'' +
                 "comfirm=" + isComfirm + '\'' +
                 "firstName=" + firstName + '\'' +
                 "lastName=" + lastName + '\'' +
@@ -269,4 +264,12 @@ public class UserAccount implements Serializable, UserDetails {
                 "cv=" + cv + '\'' +
                 '}';
     }
+
+    //    public void setUserTypeId(UserType userTypeId) {
+//        this.userTypeId = userTypeId;
+//    }
+//
+//    public UserType getUserTypeId() {
+//        return userTypeId;
+//    }
 }

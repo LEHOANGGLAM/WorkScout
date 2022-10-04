@@ -1,4 +1,4 @@
-package com.lehoangglam.workscout.services;
+package com.lehoangglam.workscout.security.services;
 
 import com.lehoangglam.workscout.entities.UserAccount;
 import com.lehoangglam.workscout.repository.UserAccountRepository;
@@ -9,26 +9,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class CustomUserService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserAccountRepository userAccountRepository;
+    UserAccountRepository userRepository;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserAccount user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-        UserAccount user = userAccountRepository.findByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("User not exist with username " + username);
-        }
-        Set<GrantedAuthority> auth = new HashSet<>();
-        auth.add(new SimpleGrantedAuthority(String.valueOf(user.getUserTypeId())));
-
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), auth);
+        return UserDetailsImpl.build(user);
 
     }
+
 }

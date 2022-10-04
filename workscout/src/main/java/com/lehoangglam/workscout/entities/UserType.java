@@ -1,5 +1,6 @@
 package com.lehoangglam.workscout.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -21,28 +22,36 @@ public class UserType implements Serializable, GrantedAuthority {
     @Size(max = 45)
     @Column(name = "user_type_name")
     private String userTypeName;
-    @OneToMany(mappedBy = "userTypeId")
-    @JsonIgnore
-    private Collection<UserAccount> userAccountCollection;
-    @OneToMany(mappedBy = "userTypeId")
-    @JsonIgnore
-    private Collection<Category> categoryCollection;
 
-    public Collection<UserAccount> getUserAccountCollection() {
-        return userAccountCollection;
-    }
 
-    public void setUserAccountCollection(Collection<UserAccount> userAccountCollection) {
-        this.userAccountCollection = userAccountCollection;
-    }
 
-    public Collection<Category> getCategoryCollection() {
-        return categoryCollection;
-    }
+//    @ManyToMany(mappedBy = "types")
+//    @JsonBackReference
+//    private Collection<UserAccount> users;
 
-    public void setCategoryCollection(Collection<Category> categoryCollection) {
-        this.categoryCollection = categoryCollection;
-    }
+//
+//    @OneToMany(mappedBy = "userTypeId")
+//    @JsonIgnore
+//    private Collection<UserAccount> userAccountCollection;
+//    @OneToMany(mappedBy = "userTypeId")
+//    @JsonIgnore
+//    private Collection<Category> categoryCollection;
+
+//    public Collection<UserAccount> getUserAccountCollection() {
+//        return userAccountCollection;
+//    }
+//
+//    public void setUserAccountCollection(Collection<UserAccount> userAccountCollection) {
+//        this.userAccountCollection = userAccountCollection;
+//    }
+//
+//    public Collection<Category> getCategoryCollection() {
+//        return categoryCollection;
+//    }
+//
+//    public void setCategoryCollection(Collection<Category> categoryCollection) {
+//        this.categoryCollection = categoryCollection;
+//    }
 
     public void setId(Integer id) {
         this.id = id;
