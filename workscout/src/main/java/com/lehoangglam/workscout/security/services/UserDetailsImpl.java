@@ -1,6 +1,7 @@
 package com.lehoangglam.workscout.security.services;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,9 +37,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(UserAccount user) {
-        List<GrantedAuthority> authorities = user.getTypes().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getUserTypeName()))
-                .collect(Collectors.toList());
+        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getUserTypeId().getUserTypeName()));
+
 
         return new UserDetailsImpl(
                 user.getId(),

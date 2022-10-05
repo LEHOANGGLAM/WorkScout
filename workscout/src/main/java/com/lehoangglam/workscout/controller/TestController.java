@@ -16,17 +16,17 @@ public class TestController {
     }
 
     @GetMapping("/jobseeker")
-    @PreAuthorize("hasRole('jobseeker') or hasRole('recruiter')")
+    @PreAuthorize("hasAuthority('jobseeker')")
     public String jobseekerAccess(){
         return "JobSeeker content";
     }
     @GetMapping("/recruiter")
-    @PreAuthorize("hasRole('recruiter')")
+    @PreAuthorize("hasAuthority('recruiter')")
     public String recruiterAccess(){
         return "Recruiter content";
     }
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasAuthority('admin')")
     public String adminAccess(){
         return "Admin content";
     }

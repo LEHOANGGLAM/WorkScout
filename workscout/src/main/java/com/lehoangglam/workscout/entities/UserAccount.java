@@ -74,23 +74,30 @@ public class UserAccount implements Serializable {
     @JsonIgnore
     private Collection<Company> companyCollection;
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
-//    @ManyToOne
-//    private UserType userTypeId;
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(  name = "user_type",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Collection<UserType> types;
-    //get,set
-    public Collection<UserType> getTypes() {
-        return types;
+    @ManyToOne
+    private UserType userTypeId;
+    public void setUserTypeId(UserType userTypeId) {
+        this.userTypeId = userTypeId;
     }
 
-    public void setTypes(Collection<UserType> types) {
-        this.types = types;
+    public UserType getUserTypeId() {
+        return userTypeId;
     }
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(  name = "user_type",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "type_id"))
+//    private Collection<UserType> types;
+//    //get,set
+//    public Collection<UserType> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Collection<UserType> types) {
+//        this.types = types;
+//    }
 
 
 
@@ -265,11 +272,4 @@ public class UserAccount implements Serializable {
                 '}';
     }
 
-    //    public void setUserTypeId(UserType userTypeId) {
-//        this.userTypeId = userTypeId;
-//    }
-//
-//    public UserType getUserTypeId() {
-//        return userTypeId;
-//    }
 }

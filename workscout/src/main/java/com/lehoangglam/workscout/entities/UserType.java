@@ -11,7 +11,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "user_type")
-public class UserType implements Serializable, GrantedAuthority {
+public class UserType implements Serializable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,21 +29,21 @@ public class UserType implements Serializable, GrantedAuthority {
 //    @JsonBackReference
 //    private Collection<UserAccount> users;
 
-//
-//    @OneToMany(mappedBy = "userTypeId")
-//    @JsonIgnore
-//    private Collection<UserAccount> userAccountCollection;
+
+    @OneToMany(mappedBy = "userTypeId")
+    @JsonIgnore
+    private Collection<UserAccount> userAccountCollection;
 //    @OneToMany(mappedBy = "userTypeId")
 //    @JsonIgnore
 //    private Collection<Category> categoryCollection;
 
-//    public Collection<UserAccount> getUserAccountCollection() {
-//        return userAccountCollection;
-//    }
-//
-//    public void setUserAccountCollection(Collection<UserAccount> userAccountCollection) {
-//        this.userAccountCollection = userAccountCollection;
-//    }
+    public Collection<UserAccount> getUserAccountCollection() {
+        return userAccountCollection;
+    }
+
+    public void setUserAccountCollection(Collection<UserAccount> userAccountCollection) {
+        this.userAccountCollection = userAccountCollection;
+    }
 //
 //    public Collection<Category> getCategoryCollection() {
 //        return categoryCollection;
@@ -77,8 +77,5 @@ public class UserType implements Serializable, GrantedAuthority {
                 '}';
     }
 
-    @Override
-    public String getAuthority() {
-        return userTypeName;
-    }
+
 }
