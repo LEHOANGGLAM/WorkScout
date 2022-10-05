@@ -10,3 +10,4 @@ import java.util.List;
 
 public interface JobPostRepository extends JpaRepository<JobPost, Integer>, JpaSpecificationExecutor<JobPost> {
 
+}

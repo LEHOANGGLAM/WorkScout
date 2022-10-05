@@ -7,3 +7,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface UserAccountRepository extends JpaRepository<UserAccount, Integer>, JpaSpecificationExecutor<UserAccount> {
     UserAccount findByUsername(String username);
+    UserAccount findById(int id);
+}
