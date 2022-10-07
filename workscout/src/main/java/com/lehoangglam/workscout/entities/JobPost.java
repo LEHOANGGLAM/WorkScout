@@ -64,7 +64,6 @@ public class JobPost implements Serializable {
     private JobCategory jobCateId;
     @JoinColumn(name = "job_type_id", referencedColumnName = "ib")
     @ManyToOne
-
     private JobType jobTypeId;
     @JoinColumn(name = "job_street_id", referencedColumnName = "id")
     @ManyToOne

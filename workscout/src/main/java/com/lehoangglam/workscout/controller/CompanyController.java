@@ -5,6 +5,7 @@ import com.lehoangglam.workscout.entities.JobPost;
 import com.lehoangglam.workscout.exception.ResourceNotFoundException;
 import com.lehoangglam.workscout.repository.CompanyRepository;
 import com.lehoangglam.workscout.repository.JobPostRepository;
+import com.lehoangglam.workscout.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ import java.util.List;
 public class CompanyController {
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
     @GetMapping("/companies")
     public List<Company> gettAllCompanies(){
@@ -27,6 +30,13 @@ public class CompanyController {
     public ResponseEntity<Company> getCompanyById(@PathVariable Integer id){
         Company company = companyRepository.findById(id).orElseThrow(()->
                 new ResourceNotFoundException("Company not exist with id: "+ id));
+        return ResponseEntity.ok(company);
+    }
+
+    @GetMapping("/companies/user/{id}")
+    public ResponseEntity<Company> getCompanyByUserId(@PathVariable Integer id){
+        Company company = companyRepository.findByUserAccountId(userAccountRepository.findById(id)).orElseThrow(()->
+                new ResourceNotFoundException("Company not exist with user id: "+ id));
         return ResponseEntity.ok(company);
     }
 //    @GetMapping("/companies/post-{id}")

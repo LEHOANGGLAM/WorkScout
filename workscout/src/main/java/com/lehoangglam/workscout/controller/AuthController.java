@@ -72,61 +72,54 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getFirstName(),
+                userDetails.getLastName(),
+                userDetails.getImage(),
                 roles));
     }
 
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-//        if (userAccountRepository.existsByUsername(signUpRequest.getUsername())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Username is already taken!"));
-//        }
-//
-//        if (userAccountRepository.existsByEmail(signUpRequest.getEmail())) {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Error: Email is already in use!"));
-//        }
-//
-//        // Create new user's account
-////        UserAccount user = new UserAccount(signUpRequest.getUsername(),
-////                signUpRequest.getEmail(),
-////                encoder.encode(signUpRequest.getPassword()));
-//
-//        Collection<String> strRoles = signUpRequest.getRole();
-//        Collection<UserType> roles = new HashSet<>();
-//
-//        if (strRoles == null) {
-//            UserType userRole = userTypeRepository.findByUserTypeName("jobseeker")
-//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//            roles.add(userRole);
-//        } else {
-//            strRoles.forEach(role -> {
-//                switch (role) {
-//                    case "admin":
-//                        UserType adminRole = userTypeRepository.findByUserTypeName("admin")
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(adminRole);
-//
-//                        break;
-//                    case "recruiter":
-//                        UserType modRole = userTypeRepository.findByUserTypeName("recruiter")
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(modRole);
-//
-//                        break;
-//                    default:
-//                        UserType userRole =  userTypeRepository.findByUserTypeName("jobseeker")
-//                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//                        roles.add(userRole);
-//                }
-//            });
-//        }
-//
-//        user.setRoles(roles);
-//        userRepository.save(user);
-//
-//        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-//    }
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userAccountRepository.existsByUsername(signUpRequest.getUsername())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Username is already taken!"));
+        }
+
+        if (userAccountRepository.existsByEmail(signUpRequest.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Email is already in use!"));
+        }
+
+        // Create new user's account
+        UserAccount user = new UserAccount(signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()));
+
+        int roleId = signUpRequest.getRole();
+        System.out.println("role: " + signUpRequest.getRole());
+        switch (roleId) {
+            case 1:
+                UserType adminRole = userTypeRepository.findById(1)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                user.setUserTypeId(adminRole);
+
+                break;
+            case 3:
+                UserType recruiterRole = userTypeRepository.findById(3)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                user.setUserTypeId(recruiterRole);
+
+                break;
+            case 2:
+                UserType userRole = userTypeRepository.findById(2)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                user.setUserTypeId(userRole);
+                break;
+        }
+        userAccountRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
 }

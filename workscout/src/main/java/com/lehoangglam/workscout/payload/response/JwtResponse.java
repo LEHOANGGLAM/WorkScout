@@ -29,11 +29,16 @@ public class JwtResponse {
     private String cv;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Integer id, String username, String email, List<String> roles) {
+    public JwtResponse(String accessToken, Integer id, String username, String email,
+                       String firstName, String lastName,
+                       String userImage, List<String> roles) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userImage = userImage;
         this.roles = roles;
     }
 

@@ -15,7 +15,8 @@ public class SignupRequest {
     @Email
     private String email;
 
-    private Collection<String> role;
+    @NotBlank
+    private int role;
 
     @NotBlank
     @Size(min = 6, max = 40)
@@ -45,11 +46,12 @@ public class SignupRequest {
         this.password = password;
     }
 
-    public Collection<String> getRole() {
-        return this.role;
+    public int getRole() {
+        return role;
     }
 
-    public void setRole(Collection<String> role) {
-        this.role = role;
+    public void setRole(int roleId) {
+        this.role = roleId;
     }
+
 }
