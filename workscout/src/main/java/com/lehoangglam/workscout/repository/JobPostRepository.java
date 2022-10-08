@@ -1,3 +1,4 @@
+
 package com.lehoangglam.workscout.repository;
 
 import com.lehoangglam.workscout.entities.Company;

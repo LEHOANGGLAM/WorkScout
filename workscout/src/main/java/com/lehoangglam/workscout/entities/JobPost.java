@@ -1,3 +1,4 @@
+
 package com.lehoangglam.workscout.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -239,3 +240,5 @@ public class JobPost implements Serializable {
                 '}';
     }
 }
+
+
