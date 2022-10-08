@@ -1,6 +1,8 @@
 package com.lehoangglam.workscout.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,7 +11,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "user_type")
-public class UserType implements Serializable {
+public class UserType implements Serializable{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -20,12 +22,20 @@ public class UserType implements Serializable {
     @Size(max = 45)
     @Column(name = "user_type_name")
     private String userTypeName;
+
+
+
+//    @ManyToMany(mappedBy = "types")
+//    @JsonBackReference
+//    private Collection<UserAccount> users;
+
+
     @OneToMany(mappedBy = "userTypeId")
     @JsonIgnore
     private Collection<UserAccount> userAccountCollection;
-    @OneToMany(mappedBy = "userTypeId")
-    @JsonIgnore
-    private Collection<Category> categoryCollection;
+//    @OneToMany(mappedBy = "userTypeId")
+//    @JsonIgnore
+//    private Collection<Category> categoryCollection;
 
     public Collection<UserAccount> getUserAccountCollection() {
         return userAccountCollection;
@@ -34,14 +44,14 @@ public class UserType implements Serializable {
     public void setUserAccountCollection(Collection<UserAccount> userAccountCollection) {
         this.userAccountCollection = userAccountCollection;
     }
-
-    public Collection<Category> getCategoryCollection() {
-        return categoryCollection;
-    }
-
-    public void setCategoryCollection(Collection<Category> categoryCollection) {
-        this.categoryCollection = categoryCollection;
-    }
+//
+//    public Collection<Category> getCategoryCollection() {
+//        return categoryCollection;
+//    }
+//
+//    public void setCategoryCollection(Collection<Category> categoryCollection) {
+//        this.categoryCollection = categoryCollection;
+//    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -66,4 +76,6 @@ public class UserType implements Serializable {
                 "userTypeName=" + userTypeName + '\'' +
                 '}';
     }
+
+
 }

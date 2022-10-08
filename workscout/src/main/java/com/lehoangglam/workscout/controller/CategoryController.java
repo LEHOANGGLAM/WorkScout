@@ -23,4 +23,6 @@ public class CategoryController {
     public List<Category> getAllCategories(){
         return categoryRepository.findAll();
     }
+
+
 }

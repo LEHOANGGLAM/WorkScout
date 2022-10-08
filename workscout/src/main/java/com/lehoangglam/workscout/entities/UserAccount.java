@@ -1,6 +1,8 @@
 package com.lehoangglam.workscout.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,7 +11,12 @@ import java.sql.Date;
 import java.util.Collection;
 
 @Entity
-@Table(name = "user_account")
+@Table(name = "user_account",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email"),
+        }
+)
 public class UserAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,8 +74,57 @@ public class UserAccount implements Serializable {
     @JsonIgnore
     private Collection<Company> companyCollection;
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
+
     @ManyToOne
     private UserType userTypeId;
+
+    public void setUserTypeId(UserType userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
+    public UserType getUserTypeId() {
+        return userTypeId;
+    }
+
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(  name = "user_type",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "type_id"))
+//    private Collection<UserType> types;
+//    //get,set
+//    public Collection<UserType> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Collection<UserType> types) {
+//        this.types = types;
+//    }
+
+    public UserAccount() {
+
+    }
+
+    public UserAccount(Integer id, @Size(max = 255) String email, @Size(max = 100) String password, Date dateOfBirth, @Size(max = 10) String gender, @Size(max = 10) String contactNumber, @Size(max = 100) String userImage, Date registrationDate, @Size(max = 45) String username, Integer isComfirm, @Size(max = 45) String firstName, @Size(max = 45) String lastName, @Size(max = 200) String aboutMe, @Size(max = 200) String cv, Collection<JobPostActivity> jobPostActivityCollection, Collection<Street> streetCollection, Collection<Comment> commentCollection, Collection<Company> companyCollection, UserType userTypeId) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.contactNumber = contactNumber;
+        this.userImage = userImage;
+        this.registrationDate = registrationDate;
+        this.username = username;
+        this.isComfirm = isComfirm;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.aboutMe = aboutMe;
+        this.cv = cv;
+        this.jobPostActivityCollection = jobPostActivityCollection;
+        this.streetCollection = streetCollection;
+        this.commentCollection = commentCollection;
+        this.companyCollection = companyCollection;
+        this.userTypeId = userTypeId;
+    }
 
     public Collection<JobPostActivity> getJobPostActivityCollection() {
         return jobPostActivityCollection;
@@ -122,6 +178,7 @@ public class UserAccount implements Serializable {
         this.password = password;
     }
 
+
     public String getPassword() {
         return password;
     }
@@ -174,13 +231,6 @@ public class UserAccount implements Serializable {
         return username;
     }
 
-    public void setUserTypeId(UserType userTypeId) {
-        this.userTypeId = userTypeId;
-    }
-
-    public UserType getUserTypeId() {
-        return userTypeId;
-    }
 
     public void setComfirm(Integer comfirm) {
         this.isComfirm = comfirm;
@@ -234,12 +284,18 @@ public class UserAccount implements Serializable {
                 "userImage=" + userImage + '\'' +
                 "registrationDate=" + registrationDate + '\'' +
                 "username=" + username + '\'' +
-                "userTypeId=" + userTypeId + '\'' +
+//                "userTypeId=" + userTypeId + '\'' +
                 "comfirm=" + isComfirm + '\'' +
                 "firstName=" + firstName + '\'' +
                 "lastName=" + lastName + '\'' +
                 "aboutMe=" + aboutMe + '\'' +
                 "cv=" + cv + '\'' +
                 '}';
+    }
+
+    public UserAccount(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 }

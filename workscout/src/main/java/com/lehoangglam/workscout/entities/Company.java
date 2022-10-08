@@ -39,7 +39,7 @@ public class Company implements Serializable {
     @Size(max = 45)
     @Column(name = "cover_image")
     private String coverImage;
-    @Size(max = 2000)
+    @Size(max = 2500)
     @Column(name = "aboutCompany")
     private String aboutCompany;
     @Size(max = 45)
