@@ -30,11 +30,32 @@ public class UserAccountController {
 //        UserAccount user = userAccountRepository.findByUsername(username);
 //        return ResponseEntity.ok(user);
 //    }
+    @PutMapping("/update/{id}")
+    public void editUser(@PathVariable Integer id, @RequestBody UserAccount user){
+        UserAccount temp = userAccountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id : " + id));
+        temp.setFirstName(user.getFirstName());
+        temp.setLastName(user.getLastName());
+        temp.setEmail(user.getEmail());
+        temp.setAboutMe(user.getAboutMe());
+        temp.setUserImage(user.getUserImage());
+        temp.setCv(user.getCv());
 
+        userAccountRepository.save(temp);
+
+    }
 
     @PostMapping("/users")
     public UserAccount userRegistration(@RequestBody UserAccount user) {
         return userAccountRepository.save(user);
+    }
+
+    @DeleteMapping("/users/delete/{id}")
+    public void deleteUser(@PathVariable Integer id){
+        UserAccount user = userAccountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not exist with id : " + id));
+        userAccountRepository.delete(user);
+
     }
 }
 
